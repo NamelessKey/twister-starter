@@ -38,7 +38,7 @@ class BodyContainer extends React.Component {
         this.setState(newState)
       })
   }
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
     const ownerUsername = (this.props.params.ownerUsername)
                     ? this.props.params.ownerUsername
                     : this.state.username
@@ -50,7 +50,10 @@ class BodyContainer extends React.Component {
       })
       .then(numFollowings => {
         newState.numFollowings = numFollowings
-        this.setState(newState)
+        if ((this.state.numFollowers!==newState.numFollowers)
+          || (this.state.numFollowings!==newState.numFollowings)) {
+          this.setState(newState)
+        }
       })
   }
   addToTweetList(tweet) {
@@ -99,10 +102,10 @@ class BodyContainer extends React.Component {
   }
   toggleFollow() {
     if (this.state.isFollowing) {
-      this.unfollow(this.state.username, this.props.ownerUsername)
+      this.unfollow(this.state.username, this.props.params.ownerUsername)
     }
     else {
-      this.follow(this.state.username, this.props.ownerUsername)
+      this.follow(this.state.username, this.props.params.ownerUsername)
     }
   }
   follow(username, followedUsername) {

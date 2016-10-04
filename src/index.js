@@ -10,7 +10,7 @@ const App = (
   <Router history={ browserHistory }>
     <Route path='/' component={ MainLayout }>
       <IndexRoute component={ BodyContainer } />
-      <Route path=':ownerUsername' component={ BodyContainer } />
+      <Route path='/:ownerUsername' component={ BodyContainer } />
     </Route>
   </Router>
 )
